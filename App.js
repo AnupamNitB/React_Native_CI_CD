@@ -16,7 +16,10 @@ import {
   Text,
   useColorScheme,
   View,
+  Button,
 } from 'react-native';
+import Crashes from 'appcenter-crashes';
+import Analytics from 'appcenter-analytics';
 
 import {
   Colors,
@@ -59,33 +62,28 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  // const checkPreviousSession = () => {
+  //   const didCrash = await Crashes.hasCrashedInLastSession();
+  //   if (didCrash) {
+  //     const report = await Crashes.lastSessionCrashReport();
+  //     alert("Sorry about that crash, we're working on a solution");
+  //   }
+  // };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+      <View style={{flex: 1}}>
+        <Button
+          title="Crash"
+          onPress={() =>
+            Analytics.trackEvent('Video clicked', {
+              Category: 'Music',
+              FileName: 'favorite.avi',
+            })
+          }
+        />
+      </View>
     </SafeAreaView>
   );
 };
